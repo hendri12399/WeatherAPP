@@ -1,9 +1,8 @@
-class Weather {
+class Weather{
   String date;
   String image;
   int suhu;
   String information;
-
 
   Weather({
     required this.date,
@@ -13,7 +12,7 @@ class Weather {
   });
 }
 
-class Weather2 {
+class Weather2{
   int time;
   String gambar;
   int suhu;
@@ -25,7 +24,7 @@ class Weather2 {
 });
 }
 
-class Weather3 {
+class Weather3{
   String gambar;
   int nilai;
   String keterangan;

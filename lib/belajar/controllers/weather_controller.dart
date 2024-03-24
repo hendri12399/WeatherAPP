@@ -1,4 +1,4 @@
-import 'Weather.dart';
+import '../models/weather.dart';
 
 class WeatherController {
   List<Weather> listWeather = List.generate(

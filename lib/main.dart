@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app3/HomePage.dart';
+import 'package:weather_app3/belajar/views/home_page.dart';
 
 void main() {
   runApp(const WeatherApp3());
