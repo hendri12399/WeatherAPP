@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:weather_app3/belajar/views/second_page.dart';
-import 'package:weather_app3/belajar/models/weather.dart';
-import 'package:weather_app3/belajar/controllers/weather_controller.dart';
+import 'package:intl/intl.dart';
+import 'package:weather_app3/views/second_page.dart';
+import 'package:weather_app3/models/weather.dart';
+import 'package:weather_app3/controllers/weather_controller.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,7 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  WeatherController controller = WeatherController();
+  WeatherController controller = Get.put(WeatherController());
 
   @override
   Widget build(BuildContext context) {
@@ -31,18 +33,20 @@ class _HomePageState extends State<HomePage> {
       ),
       body: ListView(
         children: [
-          textCard(30, "Pasuruan", FontWeight.w800, 24),
-          textCard(16.37, "17.45 PM", FontWeight.w600, 12),
+          Obx(() => textCard(30, '${controller.addres}', FontWeight.w800, 24)),
+          textCard(16.37,DateFormat.jm().format(DateTime.now()), FontWeight.w600, 12),
           const SizedBox(
             height: 20,
           ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                for (Weather weather in controller.listWeather)
-                  cardWeather(context, weather),
-              ],
+            child: Obx(
+              () => Row(
+                children: [
+                  for (WeatherObject weather in controller.listweatherObject0)
+                    cardWeather(context, weather),
+                ],
+              ),
             ),
           ),
           const SizedBox(
@@ -61,14 +65,20 @@ class _HomePageState extends State<HomePage> {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.only(top: 30),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      for (Weather3 weather3 in controller.listWeather3)
-                        cardWeather3(weather3),
-                    ],
+                  child: Obx(
+                    () => Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        for (WeatherDetail weatherdetails in (controller
+                                .listweatherObject0
+                                .firstOrNull
+                                ?.weatherDetail ??
+                            []))
+                          cardWeather3(weatherdetails),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -81,12 +91,15 @@ class _HomePageState extends State<HomePage> {
           ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                for (Weather2 weather2 in controller.listWeather2)
-                  cardWeather2(weather2),
-              ],
+            child: Obx(()
+              => Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (controller.listweatherObject0.isNotEmpty)
+                  for (WeatherObject weather in controller.listweatherObject0.last.weatherObject)
+                    cardWeather2(weather),
+                ],
+              ),
             ),
           )
         ],
@@ -96,28 +109,28 @@ class _HomePageState extends State<HomePage> {
 
   Row rowCard1(double width1, String text1, double width2, String text2) {
     return Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        SizedBox(
+          width: width1,
+          child: Text(text1,
+              style: GoogleFonts.nunitoSans(
+                  fontSize: 16, fontWeight: FontWeight.w900)),
+        ),
+        Row(
           children: [
             SizedBox(
-              width: width1,
-              child: Text(text1,
+              width: width2,
+              child: Text(text2,
                   style: GoogleFonts.nunitoSans(
                       fontSize: 16, fontWeight: FontWeight.w900)),
             ),
-            Row(
-              children: [
-                SizedBox(
-                  width: width2,
-                  child: Text(text2,
-                      style: GoogleFonts.nunitoSans(
-                          fontSize: 16, fontWeight: FontWeight.w900)),
-                ),
-                Icon(Icons.arrow_forward_ios)
-              ],
-            ),
+            Icon(Icons.arrow_forward_ios)
           ],
-        );
+        ),
+      ],
+    );
   }
 
   SizedBox textCard(double height, String text, fontWeight, double font) {
@@ -132,23 +145,23 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Column cardWeather3(Weather3 weather3) {
+  Column cardWeather3(WeatherDetail weatherObject) {
     return Column(children: [
       Image.asset(
-        "img/carbon_humidity.png",
+        weatherObject.image,
         width: 24,
         height: 24,
       ),
-      const Text(
-        "75%",
+      Text(
+        weatherObject.point.toString(),
         style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w900,
             color: Color(0xff333333),
             fontFamily: "Nunito Sans"),
       ),
-      const Text(
-        "Humidty",
+      Text(
+        weatherObject.description,
         style: TextStyle(
             fontSize: 9,
             fontWeight: FontWeight.w900,
@@ -158,7 +171,8 @@ class _HomePageState extends State<HomePage> {
     ]);
   }
 
-  Padding cardWeather2(Weather2 weather2) {
+  ///ini buat no 4
+  Padding cardWeather2(WeatherObject weather) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
@@ -169,11 +183,11 @@ class _HomePageState extends State<HomePage> {
           borderRadius: BorderRadius.circular(25),
         ),
         child: Stack(children: [
-          const Positioned(
+           Positioned(
             top: 15,
             right: 20,
             child: Text(
-              "06:00 AM",
+              DateFormat.jm().format(DateTime.parse(weather.dtTxt)),
               style: TextStyle(
                   color: Color(0xffF5F5F5),
                   fontFamily: "Nunito Sans",
@@ -184,15 +198,15 @@ class _HomePageState extends State<HomePage> {
           Positioned(
               top: 10,
               child: Image.asset(
-                "img/Cloud 3 zap.png",
+                weather.weather.first.image,
                 height: 90,
                 width: 90,
               )),
-          const Positioned(
+           Positioned(
             top: 95,
             left: 25,
             child: Text(
-              "24°C",
+              "${weather.main.temp}°C",
               style: TextStyle(
                   color: Color(0xffF5F5F5),
                   fontFamily: "Nunito Sans",
@@ -205,7 +219,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Padding cardWeather(BuildContext context, Weather weather) {
+  /// ini buat no 2
+  Padding cardWeather(BuildContext context, WeatherObject weather) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: SizedBox(
@@ -230,15 +245,15 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   children: [
                     Image.asset(
-                      weather.image,
+                      weather.weather.first.image,
                       width: 165,
                     ),
                     Expanded(
                       child: Text(
-                        "${weather.suhu}°",
+                        "${weather.main.temp}°C",
                         style: GoogleFonts.nunitoSans(
                             fontWeight: FontWeight.w600,
-                            fontSize: 55,
+                            fontSize: 40,
                             color: Color(0xffF5F5F5)),
                       ),
                     ),
@@ -246,11 +261,11 @@ class _HomePageState extends State<HomePage> {
                       height: 12,
                     ),
                     Text(
-                      weather.information,
+                      weather.weather.first.description,
                       style: GoogleFonts.nunitoSans(
                           fontWeight: FontWeight.w900,
                           fontSize: 12,
-                          color: Color(0xffF5F5F5)),
+                          color: Color(0xffF5F5F5))
                     ),
                   ],
                 ),
@@ -267,11 +282,13 @@ class _HomePageState extends State<HomePage> {
                     decoration: BoxDecoration(
                         color: const Color(0xffFFFFFF),
                         borderRadius: BorderRadius.circular(40)),
-                    child: Text(weather.date,
-                        style: GoogleFonts.nunitoSans(
-                            color: Color(0xff333333),
-                            fontSize: 11,
-                            fontWeight: FontWeight.w700)),
+                    child: Text(DateFormat("yyyy-MM-dd HH:mm").format(DateTime.parse(weather.dtTxt)),
+                      style: GoogleFonts.nunitoSans(
+                          color: Color(0xff333333),
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ],
               ),

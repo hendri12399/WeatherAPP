@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app3/belajar/views/home_page.dart';
+import 'package:get/get.dart';
+import 'package:weather_app3/views/home_page.dart';
+
 
 void main() {
   runApp(const WeatherApp3());
@@ -15,7 +17,7 @@ class WeatherApp3 extends StatefulWidget {
 class _WeatherApp3State extends State<WeatherApp3> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomePage()
     );
