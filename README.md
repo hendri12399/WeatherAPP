@@ -14,7 +14,10 @@ which contains Weather API, using GetX management and real time location using g
 | Parameter | Type     | Description                                                                                                                     |
 |:----------|:---------|:--------------------------------------------------------------------------------------------------------------------------------|
 | `api_key` | `string` | **"https://api.openweathermap.org/data/2.5/weather"**. Weather API                                                              |
-| `Figma`   | `string` | **"https://www.figma.com/board/QTIZOYPpZwrs3SDe1NBLbo/Whiteboard---WeatherApp?node-id=2-2&t=etaLosEInTCrnHPF-0"**. Figma Desain |
+
+## UI Refrence
+
+**"https://www.figma.com/board/QTIZOYPpZwrs3SDe1NBLbo/Whiteboard---WeatherApp?node-id=2-2&t=etaLosEInTCrnHPF-0"**. Figma Desain
 
 ## Screenshots
 
