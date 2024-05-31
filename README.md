@@ -28,5 +28,5 @@ Figma design.**"https://www.figma.com/board/QTIZOYPpZwrs3SDe1NBLbo/Whiteboard---
 
 ## Authors
 
-- [@hendri12399](https://github.com/hendri12399/Project1)
+- [@hendri12399](https://github.com/hendri12399/WeatherAPP)
 
