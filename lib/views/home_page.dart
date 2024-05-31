@@ -17,6 +17,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   WeatherController controller = Get.put(WeatherController());
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,19 +35,26 @@ class _HomePageState extends State<HomePage> {
       body: ListView(
         children: [
           Obx(() => textCard(30, '${controller.addres}', FontWeight.w800, 24)),
-          textCard(16.37,DateFormat.jm().format(DateTime.now()), FontWeight.w600, 12),
+          textCard(
+              16.37, DateFormat.jm().format(DateTime.now()), FontWeight.w600,
+              12),
           const SizedBox(
             height: 20,
           ),
+          ///buat no2
           SingleChildScrollView(
+            controller: controller.scrollController,
+            physics: NeverScrollableScrollPhysics(),
             scrollDirection: Axis.horizontal,
             child: Obx(
-              () => Row(
-                children: [
-                  for (WeatherObject weather in controller.listweatherObject0)
-                    cardWeather(context, weather),
-                ],
-              ),
+                  () =>
+                  Row(
+                    children: [
+                      for (WeatherObject weather in controller
+                          .listweatherObject0)
+                        cardWeather(context, weather),
+                    ],
+                  ),
             ),
           ),
           const SizedBox(
@@ -66,19 +74,20 @@ class _HomePageState extends State<HomePage> {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 30),
                   child: Obx(
-                    () => Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        for (WeatherDetail weatherdetails in (controller
+                        () =>
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            for (WeatherDetail weatherdetails in (controller
                                 .listweatherObject0
                                 .firstOrNull
                                 ?.weatherDetail ??
-                            []))
-                          cardWeather3(weatherdetails),
-                      ],
-                    ),
+                                []))
+                              cardWeather3(weatherdetails),
+                          ],
+                        ),
                   ),
                 ),
               ),
@@ -91,15 +100,16 @@ class _HomePageState extends State<HomePage> {
           ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            child: Obx(()
-              => Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (controller.listweatherObject0.isNotEmpty)
-                  for (WeatherObject weather in controller.listweatherObject0.last.weatherObject)
-                    cardWeather2(weather),
-                ],
-              ),
+            child: Obx(() =>
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (controller.listweatherObject0.isNotEmpty)
+                      for (WeatherObject weather in controller
+                          .listweatherObject0.last.weatherObject)
+                        cardWeather2(weather),
+                  ],
+                ),
             ),
           )
         ],
@@ -183,7 +193,7 @@ class _HomePageState extends State<HomePage> {
           borderRadius: BorderRadius.circular(25),
         ),
         child: Stack(children: [
-           Positioned(
+          Positioned(
             top: 15,
             right: 20,
             child: Text(
@@ -202,7 +212,7 @@ class _HomePageState extends State<HomePage> {
                 height: 90,
                 width: 90,
               )),
-           Positioned(
+          Positioned(
             top: 95,
             left: 25,
             child: Text(
@@ -224,7 +234,10 @@ class _HomePageState extends State<HomePage> {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: SizedBox(
-        width: MediaQuery.of(context).size.width / 2 + 24.5,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width / 2 + 24.5,
         child: InkWell(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -261,11 +274,11 @@ class _HomePageState extends State<HomePage> {
                       height: 12,
                     ),
                     Text(
-                      weather.weather.first.description,
-                      style: GoogleFonts.nunitoSans(
-                          fontWeight: FontWeight.w900,
-                          fontSize: 12,
-                          color: Color(0xffF5F5F5))
+                        weather.weather.first.description,
+                        style: GoogleFonts.nunitoSans(
+                            fontWeight: FontWeight.w900,
+                            fontSize: 12,
+                            color: Color(0xffF5F5F5))
                     ),
                   ],
                 ),
@@ -282,7 +295,8 @@ class _HomePageState extends State<HomePage> {
                     decoration: BoxDecoration(
                         color: const Color(0xffFFFFFF),
                         borderRadius: BorderRadius.circular(40)),
-                    child: Text(DateFormat("yyyy-MM-dd HH:mm").format(DateTime.parse(weather.dtTxt)),
+                    child: Text(DateFormat("yyyy-MM-dd HH:mm").format(
+                        DateTime.parse(weather.dtTxt)),
                       style: GoogleFonts.nunitoSans(
                           color: Color(0xff333333),
                           fontSize: 11,

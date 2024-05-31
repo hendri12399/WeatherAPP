@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/date_time_patterns.dart';
 import 'package:weather_app3/services/service_weather.dart';
@@ -5,7 +6,9 @@ import '../models/weather.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 
+
 class WeatherController extends GetxController {
+  ScrollController scrollController = ScrollController();
   var apiServices = ApiServices();
   Rxn<Coordinate> coordinate = Rxn<Coordinate>();
 
@@ -64,6 +67,7 @@ class WeatherController extends GetxController {
   //
   // }
 
+
   Future getWeather2(double latitude, double longitude) async {
     var data = await _determinePosition();
     var response = await apiServices.getWeather2(
@@ -116,3 +120,4 @@ class WeatherController extends GetxController {
     print(data);
   }
 }
+

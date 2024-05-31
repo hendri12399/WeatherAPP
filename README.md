@@ -1,20 +1,30 @@
-# weather_app3
+# API Aplication Projects
 
-A new Flutter project.
+This project contains code to create an application and also learn how to use it MVC architecture which contains Weather APIs
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## API Reference
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+#### Get all items
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```http
+  GET /api/items
+```
 
-Project 1
-project ini berisikan code untuk membuat aplikasi weather app dan juga mempelajari cara menggunakan
-architecture MVC yang berisikan 5 API
+| Parameter | Type     | Description                                                              |
+| :-------- | :------- |:-------------------------------------------------------------------------|
+| `api_key` | `string` | **"https://api.openweathermap.org/data/2.5/weather"**. Weather API       |
+
+
+
+## Screenshots
+
+![Imgur](https://i.imgur.com/piGwphE.jpg)
+![Imgur](https://i.imgur.com/61abffs.jpg)
+
+
+## Authors
+
+- [@hendri12399](https://github.com/hendri12399/Project1)
+
