@@ -17,7 +17,7 @@ which contains Weather API, using GetX management and real time location using g
 
 ## UI Refrence
 
-**"https://www.figma.com/board/QTIZOYPpZwrs3SDe1NBLbo/Whiteboard---WeatherApp?node-id=2-2&t=etaLosEInTCrnHPF-0"**. Figma Desain
+Figma design.**"https://www.figma.com/board/QTIZOYPpZwrs3SDe1NBLbo/Whiteboard---WeatherApp?node-id=2-2&t=etaLosEInTCrnHPF-0"**
 
 ## Screenshots
 
