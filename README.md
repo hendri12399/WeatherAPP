@@ -20,10 +20,10 @@ which contains Weather API, using GetX management and real time location using g
 Figma design.**"https://www.figma.com/board/QTIZOYPpZwrs3SDe1NBLbo/Whiteboard---WeatherApp?node-id=2-2&t=etaLosEInTCrnHPF-0"**
 
 ## Screenshots
-Home Page 
+#### Home Page
 ![Imgur](https://i.imgur.com/piGwphE.jpg)
 
-Second Page
+#### Second Page
 ![Imgur](https://i.imgur.com/61abffs.jpg)
 
 ## Authors
